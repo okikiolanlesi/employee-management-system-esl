@@ -38,13 +38,6 @@ public class AttendanceController extends Controller {
     public Result markAttendance(String userUuid) throws JsonProcessingException {
 
 
-
-        String registeredUser = iUser.addEmployee(userForm.get());
-
-        if(registeredUser == null){
-            return badRequest("email already taken");
-        }
-
         return ok(objectMapper.writeValueAsString(registeredUser));
     }
 

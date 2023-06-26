@@ -1,0 +1,2 @@
+POST    /register/                   controllers.UserController.register()
+GET     /:userId/                   controllers.UserController.getUser(userId: Long)

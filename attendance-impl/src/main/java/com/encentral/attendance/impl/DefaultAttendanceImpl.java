@@ -4,6 +4,7 @@ import com.ems.entities.JpaAttendance;
 import com.ems.entities.JpaUser;
 import com.ems.user.api.IAttendance;
 import com.ems.user.model.Attendance;
+import com.ems.user.model.AttendanceMapper;
 import com.google.inject.Inject;
 import play.db.jpa.JPAApi;
 import play.db.jpa.Transactional;
@@ -41,10 +42,16 @@ public class DefaultAttendanceImpl implements IAttendance {
             return "To late to mark attendance";
         }
 
+        TypedQuery<JpaUser> query = jpaApi.em().createQuery("SELECT u FROM JpaUser u WHERE u.uuid = :uuid", JpaUser.class);
+        query.setParameter("uuid", userUuid);
+        JpaUser user = query.getSingleResult();
 
+        if (user == null) {
+            return null;
+        }
 
         JpaAttendance newEntry  = new JpaAttendance();
-        newEntry.setUser();
+        newEntry.setUser(user);
 
         jpaApi.em().persist(newEntry);
         return "Attendance marked successfully";
@@ -52,7 +59,13 @@ public class DefaultAttendanceImpl implements IAttendance {
 
     @Override
     public List<Attendance> getDailyAttendance(){
+        TypedQuery<JpaAttendance> query = jpaApi.em().createQuery("SELECT u FROM JpaAttendance u", JpaAttendance.class);
+        List<JpaAttendance> attendances = query.getResultList();
+        List<Attendance> attendanceList = new ArrayList<>();
 
-        return new ArrayList<Attendance>();
+        for(JpaAttendance attendance: attendances){
+            attendanceList.add(AttendanceMapper.jpaAttendanceToAttendance(attendance));
+        }
+        return attendanceList;
     };
 }

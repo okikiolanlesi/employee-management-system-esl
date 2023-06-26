@@ -1,0 +1,2 @@
+POST    /mark-attendance/:userUuid            controllers.AttendanceController.markAttendance(userUuid: String)
+GET     /                                     controllers.AttendanceController.getDailyAttendance()

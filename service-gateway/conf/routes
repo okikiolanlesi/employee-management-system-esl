@@ -20,3 +20,4 @@ GET            /api-docs                                                       c
 
 
 ->             /user                                                               user.Routes
+->             /attendance                                                         attendance.Routes

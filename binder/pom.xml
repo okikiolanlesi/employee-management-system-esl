@@ -59,6 +59,18 @@
             <version>1.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.encentral.scaffold</groupId>
+            <artifactId>attendance-impl</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.encentral.scaffold</groupId>
+            <artifactId>attendance-impl</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 </project>

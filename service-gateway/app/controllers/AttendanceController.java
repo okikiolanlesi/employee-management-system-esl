@@ -1,6 +1,7 @@
 package controllers;
 
 import com.ems.user.api.IUser;
+import com.ems.user.model.Attendance;
 import com.ems.user.model.User;
 import com.encentral.scaffold.commons.utils.MyObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -18,8 +19,8 @@ import play.mvc.Result;
 
 
 @Transactional
-@Api(value = "Employee")
-public class UserController extends Controller {
+@Api(value = "Attendance")
+public class AttendanceController extends Controller {
 
     @Inject
     IUser iUser;
@@ -30,19 +31,13 @@ public class UserController extends Controller {
     @Inject
     MyObjectMapper objectMapper;
 
-    @ApiOperation(value = "Register a user")
+    @ApiOperation(value = "Mark Attendance")
     @ApiResponses(
-            value= {@ApiResponse(code = 200, response = User.class, message="User registered succcessfully")}
+            value= {@ApiResponse(code = 200, response = Attendance.class, message="Attendance marked succcessfully")}
     )
-    public Result register() throws JsonProcessingException {
-        Form<User> userForm = formFactory.form(User.class).bindFromRequest();
+    public Result markAttendance(String userUuid) throws JsonProcessingException {
 
-        JsonNode json = request().body().asJson();
-        System.out.println(json);
 
-        if(userForm.hasErrors()){
-            return badRequest(userForm.errorsAsJson());
-        }
 
         String registeredUser = iUser.addEmployee(userForm.get());
 
@@ -53,13 +48,5 @@ public class UserController extends Controller {
         return ok(objectMapper.writeValueAsString(registeredUser));
     }
 
-    public Result getUser(Long userId) throws JsonProcessingException {
-        Form<User> userForm = formFactory.form(User.class).bindFromRequest();
 
-        if(userForm.hasErrors()){
-            return badRequest(userForm.errorsAsJson());
-        }
-
-        return ok(objectMapper.writeValueAsString(iUser.getEmployee(userId)));
-    }
 }

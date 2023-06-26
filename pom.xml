@@ -183,6 +183,8 @@
         <module>integration-tests</module>
         <module>user-api</module>
         <module>user-impl</module>
+        <module>attendance-api</module>
+        <module>attendance-impl</module>
     </modules>
 </project>
 

@@ -60,6 +60,6 @@ public class UserController extends Controller {
             return badRequest(userForm.errorsAsJson());
         }
 
-        return ok(objectMapper.writeValueAsString(iUser.getUser(userId)));
+        return ok(objectMapper.writeValueAsString(iUser.getEmployee(userId)));
     }
 }
